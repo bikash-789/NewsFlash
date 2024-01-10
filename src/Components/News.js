@@ -3,7 +3,7 @@ import NewsItem from "./NewsItem";
 import Spinner from "./Spinner.js";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+require("dotenv").config();
 const News = ({ country = "in", pageSize = 9, category = "general" }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ const News = ({ country = "in", pageSize = 9, category = "general" }) => {
   const updateNews = async () => {
     setLoading(true);
     try {
-      const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=0342dc1b262b4f39aec1c23ba92d4413&page=${page}&pageSize=${pageSize}`;
+      const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.REACT_APP_API_KEY}&page=${page}&pageSize=${pageSize}`;
       const response = await fetch(url);
       const parsedData = await response.json();
       setArticles(parsedData.articles);
