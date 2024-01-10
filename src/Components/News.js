@@ -44,42 +44,43 @@ const News = ({ country = "in", pageSize = 9, category = "general" }) => {
       </h1>
       {loading && <Spinner />}
       <InfiniteScroll
-        dataLength={articles.length}
+        dataLength={articles && articles.length}
         next={fetchMoreData}
-        hasMore={articles.length !== totalResults}
+        hasMore={articles && articles.length !== totalResults}
         loader={<Spinner />}
         style={{ scroll: "auto" }}
       >
         <div className="row">
-          {articles.map((article) => (
-            <div
-              key={article.url}
-              className="col d-flex flex-wrap justify-content-center align-items-baseline col-sm-12 col-md-4 p-2 mx-sm-4 mx-md-0 my-3"
-            >
-              <NewsItem
+          {articles &&
+            articles.map((article) => (
+              <div
                 key={article.url}
-                title={
-                  article.title == null
-                    ? ""
-                    : article.title.slice(0, 41) + "..."
-                }
-                description={
-                  article.description == null
-                    ? article.content
-                    : article.description.slice(0, 60) + "..."
-                }
-                imageUrl={
-                  article.urlToImage == null
-                    ? "https://www.salvationarmy.org.au/scribe/sites/longjetty/files/Church_News/news-3.jpg"
-                    : article.urlToImage
-                }
-                newsUrl={article.url}
-                author={article.author}
-                publishedAt={article.publishedAt}
-                source={article.source.name}
-              />
-            </div>
-          ))}
+                className="col d-flex flex-wrap justify-content-center align-items-baseline col-sm-12 col-md-4 p-2 mx-sm-4 mx-md-0 my-3"
+              >
+                <NewsItem
+                  key={article.url}
+                  title={
+                    article.title == null
+                      ? ""
+                      : article.title.slice(0, 41) + "..."
+                  }
+                  description={
+                    article.description == null
+                      ? article.content
+                      : article.description.slice(0, 60) + "..."
+                  }
+                  imageUrl={
+                    article.urlToImage == null
+                      ? "https://www.salvationarmy.org.au/scribe/sites/longjetty/files/Church_News/news-3.jpg"
+                      : article.urlToImage
+                  }
+                  newsUrl={article.url}
+                  author={article.author}
+                  publishedAt={article.publishedAt}
+                  source={article.source.name}
+                />
+              </div>
+            ))}
         </div>
       </InfiniteScroll>
     </div>
