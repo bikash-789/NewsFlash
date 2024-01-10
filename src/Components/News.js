@@ -12,7 +12,7 @@ const News = ({ country = "in", pageSize = 9, category = "general" }) => {
 
   useEffect(() => {
     updateNews();
-  }, [country, page, category, pageSize]);
+  }, []);
 
   const updateNews = async () => {
     setLoading(true);
