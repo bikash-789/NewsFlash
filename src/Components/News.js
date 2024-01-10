@@ -3,7 +3,10 @@ import NewsItem from "./NewsItem";
 import Spinner from "./Spinner.js";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
+import cors from "cors";
 require("dotenv").config();
+// cors middleware
+const corsMiddleware = cors();
 const News = ({ country = "in", pageSize = 9, category = "general" }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +21,13 @@ const News = ({ country = "in", pageSize = 9, category = "general" }) => {
     setLoading(true);
     try {
       const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.REACT_APP_API_KEY}&page=${page}&pageSize=${pageSize}`;
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+      });
       const parsedData = await response.json();
       setArticles(parsedData.articles);
       setTotalResults(parsedData.totalResults);
