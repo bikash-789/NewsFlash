@@ -22,10 +22,6 @@ const News = ({ country = "in", pageSize = 9, category = "general" }) => {
     try {
       const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.REACT_APP_API_KEY}&page=${page}&pageSize=${pageSize}`;
       const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
         mode: "cors",
       });
       const parsedData = await response.json();
